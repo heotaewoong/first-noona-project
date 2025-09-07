@@ -57,7 +57,7 @@ function play(){
         resultArea.textContent = "맞췄습니다!";
         console.log("맞췄습니다!")
         gameOver = true;
-    }
+    } 
 
     history.push(userValue);
     console.log(history);
