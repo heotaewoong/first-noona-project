@@ -1,0 +1,91 @@
+body {
+  /* background-repeat: no-repeat; */  /* (주석) 배경 이미지를 반복하지 않음 */
+  background-size: cover;              /* 배경 이미지를 화면에 꽉 차게 늘림 */
+  height: 100vh;                       /* 화면 전체 높이(100%)로 설정 */
+  display: flex;                       /* 내부 요소들을 flex(유연하게 배치)로 정렬 */
+  flex-direction: column;              /* 위에서 아래로(세로) 정렬 */
+  justify-content: center;             /* 세로 방향으로 가운데 정렬 */
+  align-items: center;                 /* 가로 방향으로 가운데 정렬 */
+  font-family: "East Sea Dokdo", cursive; /* 글꼴을 East Sea Dokdo로 지정, 없으면 cursive(필기체) 사용 */
+  background-image: url(image/soju.jpeg); /* 배경 이미지를 image 폴더의 soju.jpeg로 설정 */
+}
+
+.container {
+  border: 10px solid white;
+  border-radius: 20px;
+  text-align: center;
+  background-color: rgba(247, 243, 242, 0.7);
+}
+
+
+.border-line {
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.button-style {
+  height: 80px;
+  width: 100px;
+  margin-top: 5px;
+  border-radius: 50px;
+  font-size: 30pt;
+  font-weight: bold;
+}
+.pre-title {
+  font-size: 5vw;
+  font-weight: bold;
+  color: blue;
+}
+.title {
+  font-size: 7vw;
+  font-weight: bold;
+}
+.sub-title {
+  font-size: 6vw;
+  font-weight: bold;
+}
+
+.main-img {
+  width: 20vw;
+  height: 20vh
+}
+
+.red-text {
+  color: red;
+}
+
+.form-control {
+  height: 80px;
+
+  font-size: 3vw;
+  margin-right: 20px;
+  text-align: center;
+}
+
+@media screen and (max-width: 48rem) {
+  .pre-title {
+    font-size: 10vw;
+  }
+  .title {
+    font-size: 12vw;
+  }
+  .sub-title {
+    font-size: 11vw;
+  }
+  .form-control {
+    font-size: 8vw;
+    max-width: 500px;
+    margin-right: 0px;
+  }
+  .main-img {
+    width: 40vw;
+  }
+  .button-reset {
+    font-size: 5vw;
+    width: 80px;
+    height: 60px;
+  }
+}

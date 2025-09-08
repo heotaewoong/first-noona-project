@@ -4,15 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet"> <!-- Google Fonts에서 East Sea Dokdo 폰트를 불러옴 -->
+    <link rel ="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> <!-- Bootstrap CSS 프레임워크 불러옴 -->
+    <link rel="stylesheet" href="style.css"> <!-- style.css 파일을 불러옴 -->
 </head>
-<body>
-    <h1>숫자 맞추기 게임!</h1>
-    <div id="result-area">결과가 나온다.</div>
-    <div id="chance-area">남은 기회:</div>
-    <input type="number" id="user-input"/>
-    <button id="play-button">Go!</button>
-    <button id="reset-button">Reset!</button>
+<body> 
+    <div class ="container"> 
+    <h1 class="pre-title">태웅쓰 대학 엠티</h1>
+    <h1 class="title">술게임</h1>
+    <h1 class="sub-title"><span class="red-text">죽음</span>의 업 & 다운</h1>
+    <div id="result-area">
+        <img src="https://media1.giphy.com/media/9DinPR8bzFsmf74j9W/giphy.gif" class="main-img"/>
+        <h1 class="result-text">죽기 싫다면 맞춰라!!</h1>
+    </div>
+    <h2 id="chance-area">남은 기회:</h2>
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-md-6">
+            <input type="number" id="user-input" class="form-control mb-10" placeholder="1부터 100까지 숫자를 입력"/>           
+        </div>
+        <div class="col-md-2 d-flex flex-row">
+            <button class="btn btn-success mb-4 button-style" id="play-button">Go!!</button>
+            <button class="btn btn-warning mb-4 button-style" id="reset-button" style="margin-left:10px;">reset!</button>
+        </div>
+    </div>
+
+    </div>
+    
     <script src="main.js"></script>
 </body>
-</html>
+
+</html> 
