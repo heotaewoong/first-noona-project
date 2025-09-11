@@ -10,75 +10,124 @@
 // 전체탭을 누르면 다시 전체 아이템으로 돌아온다.
 
 let taskInput = document.getElementById("task-input");
-console.log(taskInput);
-
+let tabs =  document.querySelectorAll(".task-tabs div");
 let addButton = document.getElementById("add-task-button");
 let taskList = [];
-addButton.addEventListener("click", addTask); // 버튼에다가 이벤트를 주고 싶으면 addEventListener를 쓴다.
+let mode = "all"; // all, ongoing, done
+let filterList = [];
+let underLine = document.getElementById("under-line");
+
+addButton.addEventListener("click", addTask);
+console.log(tabs);
+
+// 탭에 클릭 리스너 등록 (under-line 요소는 제외되도록 index 구조에 맞게 1부터 시작한 코드가 원래 의도라면 유지)
+for (let i = 1; i < tabs.length; i++) {
+    tabs[i].addEventListener("click", filter); // event.currentTarget 사용 가능
+    console.log(tabs[i]);
+}
 
 function addTask() {
-    let task = { // 객체로 바꾸기 : 객체로 저장하면 한 항목에 여러 속성(내용, 완료 상태, id, 생성시간 등)을 같이 묶어 관리할 수 있어 체크 상태를 켜고 끄기(토글)하기 쉽습니다.
-        id: randomIDGenerate(), // id를 줌으로써 나중에 특정 아이템을 쉽게 찾고 조작할 수 있습니다.
+    if (!taskInput) return;
+    let task = {
+        id: randomIDGenerate(),
         taskContent: taskInput.value,
-        isComplete: false, 
+        isComplete: false,
     }
-    taskList.push(task); 
-    console.log(taskList); 
-    taskInput.value = ''; 
+    taskList.push(task);
+    taskInput.value = '';
     render();
 }
 
-function render() { // 그려주는 함수 
+if (taskInput) {
+    taskInput.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.keyCode === 13) {
+            event.preventDefault(); // form 자동 제출 막기
+            if (taskInput.value.trim() === "") return;
+            addTask();
+        }
+    });
+}
+
+function render() {
+    let list = [];
+    if (mode == "all") {
+        list = taskList;
+    } else {
+        list = filterList;
+    }
+
     let resultHTML = '';
-    for (let i = 0; i < taskList.length; i++) {
-        if(taskList[i].isComplete == true){
+    for (let i = 0; i < list.length; i++) {
+        if (list[i].isComplete) {
+            resultHTML += `<div class="task task-done-area">
+                <div class="task-done">${list[i].taskContent}</div>
+                <div>
+                    <button onclick="toggleComplete('${list[i].id}')" aria-label="undo"><i class="fa-solid fa-rotate-left"></i></button>
+                    <button onclick="deleteTask('${list[i].id}')" aria-label="delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
+        } else {
             resultHTML += `<div class="task">
-            <div class="task-done">${taskList[i].taskContent}</div>
-            <div>
-                <button onclick="toggleComplete('${taskList[i].id}')">check</button>
-                <i class="fa-regular fa-square-check"></i>
-                <button onclick="deleteTask('${taskList[i].id}')">delete</button>
-            </div>
-        </div>`;
-        }else{
-            resultHTML += `<div class="task">
-            <div>${taskList[i].taskContent}</div>
-            <div>
-                <button onclick="toggleComplete('${taskList[i].id}')">check</button>
-                <button onclick="deleteTask('${taskList[i].id}')">delete</button>
-            </div>
-        </div>`;
+                <div>${list[i].taskContent}</div>
+                <div>
+                    <button onclick="toggleComplete('${list[i].id}')" aria-label="toggle complete"><i class="fa-solid fa-check"></i></button>
+                    <button onclick="deleteTask('${list[i].id}')" aria-label="delete"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>`;
         }
     }
     document.getElementById("task-board").innerHTML = resultHTML;
 }
-// addEventListener가 아니라 onclick 속성으로 이벤트를 주는 방법
 
-function toggleComplete(id) { // id는 render에서 전달한 문자열(예: '_abc123')
-    console.log("id:", id);
+function toggleComplete(id) {
     for (let i = 0; i < taskList.length; i++) {
         if (taskList[i].id === id) {
-            taskList[i].isComplete = !taskList[i].isComplete; // false가 아니라 !를 쓰면 스위치로 왔다갔다 할 수 있다.
-            break
-        } 
+            taskList[i].isComplete = !taskList[i].isComplete;
+            break;
+        }
     }
-    render();
-    console.log(taskList)
-} 
+    filter(); // 현재 모드에 맞춰 갱신
+}
 
 function deleteTask(id) {
-    console.log("id:", id);
     for (let i = 0; i < taskList.length; i++) {
         if (taskList[i].id === id) {
-            taskList.splice(i, 1); // i번째에서 1개 지워라
-            break
+            taskList.splice(i, 1);
+            break;
+        }
+    }
+    filter();
+}
+
+function filter(event) {
+    // 안전하게 클릭된 탭 요소 가져오기: currentTarget 우선
+    const target = event && (event.currentTarget || event.target);
+    if (target && target.id) {
+        mode = target.id;
+        if (underLine) {
+            const ulHeight = underLine.offsetHeight || 4;
+            underLine.style.width = `${target.offsetWidth}px`;
+            underLine.style.left = `${target.offsetLeft}px`;
+            underLine.style.top = `${target.offsetTop + target.offsetHeight - ulHeight}px`;
+        }
+    }
+
+    filterList = [];
+    if (mode === "all") {
+        render();
+        return;
+    } else if (mode === "ongoing") {
+        for (let i = 0; i < taskList.length; i++) {
+            if (!taskList[i].isComplete) filterList.push(taskList[i]);
+        }
+    } else if (mode === "done") {
+        for (let i = 0; i < taskList.length; i++) {
+            if (taskList[i].isComplete) filterList.push(taskList[i]);
         }
     }
     render();
-    console.log(taskList)
 }
 
-
 function randomIDGenerate() {
-    return '_' + Math.random().toString(36).substr(2, 9); // 함수를 다른 곳에 넣을때 return 값 쓴다 
+    return '_' + Math.random().toString(36).substr(2, 9);
 }
