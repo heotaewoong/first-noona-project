@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Website Todo</title>
+    <!-- Google Font (선택) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap & FontAwesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" crossorigin="anonymous">
+    
     <link rel="stylesheet" href="style.css">
 </head> 
 <body> 
     <div class="container">
-        <h1>Todo List</h1>
-        <section class = "input-area">
-            <input type="text" id="task-input"/>
-            <button id="add-task-button">+</button>
-        </section>
-
+        <!-- 보라색 헤더 바 -->
+        <header class="app-header">
+        <button class="icon-btn" aria-label="메뉴"><i class="fas fa-bars"></i></button>
+        <h1 class="app-title">Website todo</h1>
+        <span class="header-spacer"></span>
+        </header>
         <section class="task-area">
-            <div class="task-tabs">
-                <div id="under-line"></div>
-                <div>
-                    all
-                </div>
-                <div>
-                    in progress
-                </div>
-                <div>
-                    done
-                </div>
+            <!-- 탭 -->
+            <div class="task-tabs" style="position:relative;">
+                <div id="under-line" style="position:absolute;"></div>
+                <div id="all">all</div>
+                <div id="ongoing">in progress</div>
+                <div id="done">done</div>
             </div>
+            <!-- 할 일 리스트 -->
             <div id="task-board"> 
+            </div>
+            <!-- 입력 및 버튼 -->
+            <div class="card-footer">
+                <div class="task-count"><span id="task-count">0</span> TASKS</div>
+                <div class="add-area">
+                <input id="task-input" type="text" placeholder="Add new task..." />
+                <button id="add-task-button" class="add-new">+ New task</button>
+                </div>
             </div>
         </section>
     </div>
