@@ -17,6 +17,18 @@ let mode = "all"; // all, ongoing, done
 let filterList = [];
 let underLine = document.getElementById("under-line");
 
+let taskBoard = document.getElementById('task-board'); 
+let taskCount = document.getElementById("task-count");
+
+// 초기 로드
+window.addEventListener('DOMContentLoaded', ()=>{
+  load();
+  render();
+  // 시작 시 active 탭 밑줄 위치 세팅
+  const current = document.querySelector('.tab-btn.active');
+  if(current) moveUnderline(current);
+});
+
 addButton.addEventListener("click", addTask);
 console.log(tabs);
 
@@ -27,7 +39,9 @@ for (let i = 1; i < tabs.length; i++) {
 }
 
 function addTask() {
-    if (!taskInput) return;
+    if (!taskInput) return; 
+    const taskValue = taskInput.value.trim(); 
+    if (taskValue === "") return;        // 빈 값 추가 방지(클릭/엔터 공통)
     let task = {
         id: randomIDGenerate(),
         taskContent: taskInput.value,
@@ -100,17 +114,13 @@ function deleteTask(id) {
 }
 
 function filter(event) {
-    // 안전하게 클릭된 탭 요소 가져오기: currentTarget 우선
-    const target = event && (event.currentTarget || event.target);
-    if (target && target.id) {
-        mode = target.id;
-        if (underLine) {
-            const ulHeight = underLine.offsetHeight || 4;
-            underLine.style.width = `${target.offsetWidth}px`;
-            underLine.style.left = `${target.offsetLeft}px`;
-            underLine.style.top = `${target.offsetTop + target.offsetHeight - ulHeight}px`;
-        }
-    }
+  if (event && event.target) {
+    mode = event.target.id;
+    underLine.style.width = event.target.offsetWidth + "px";
+    underLine.style.left = event.target.offsetLeft + "px";
+    underLine.style.top =
+      event.target.offsetTop + (event.target.offsetHeight - 4) + "px";
+  } // 진행중 상태에서 끝남으로 표시하면 바로 사라지는 부분은 event가 없음 그래서 조건추가
 
     filterList = [];
     if (mode === "all") {
