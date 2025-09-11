@@ -1,45 +1,60 @@
-body{
-    margin:0;
+body {
+    margin: 0;
     background-image: url("images/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.container{
+.container {
     background-color: white;
     min-height: 100vh;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow:
+        rgba(0, 0, 0, 0.25) 0px 54px 55px,
+        rgba(0, 0, 0, 0.12) 0px -12px 30px,
+        rgba(0, 0, 0, 0.12) 0px 4px 6px,
+        rgba(0, 0, 0, 0.17) 0px 12px 13px,
+        rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
-.task-area{
-    border:1px solid lightgray; 
+.task-area {
+    border: 1px solid lightgray;
 }
-.task-tabs{
+
+.task-tabs {
     display: flex;
-    border-bottom:1px solid lightgray;
+    border-bottom: 1px solid lightgray;
     position: relative;
 }
-.task-tabs div{
+
+.task-tabs > div {
     padding: 1em;
+    cursor: pointer;
 }
 
-#under-line{
-    height:4px;
-    background-color: pink;
+#under-line {
     position: absolute;
-    left:0;
+    left: 0;
+    top: 52px; /* JS에서 덮어쓰기 되므로 기본값만 둠 */
     width: 42px;
-    top:52px;
-    padding:0px; 
+    height: 4px;
+    background-color: pink;
+    transition: left 0.5s, width 0.5s, top 0.2s;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.task{
+.task {
     display: flex;
     justify-content: space-between;
     padding: 1em;
 }
 
-.task-done{
+.task-done {
     text-decoration: line-through;
-    
+}
+
+/* completed row background spans full width and keeps padding */
+.task.task-done-area {
+    background-color: #f2f2f2;
+    padding: 1em;
 }
