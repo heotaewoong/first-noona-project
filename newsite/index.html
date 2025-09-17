@@ -1,7 +1,7 @@
 const API_KEY = "7410686840814eb7bdadd017d9eb386a";
 let news = [];
 const getNews = async() => {
-    let url = new URL(https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&apiKey=${API_KEY});
+    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
     console.log("uuu", url);
     const response = await fetch(url); 
     const data = await response.json();
