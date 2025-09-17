@@ -1,11 +1,12 @@
 const API_KEY = "7410686840814eb7bdadd017d9eb386a";
 let news = [];
-const getNews = async() => {
+
+const getNews = async () => {
     let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
     console.log("uuu", url);
-    const response = await fetch(url); 
+    const response = await fetch(url);
     const data = await response.json();
-    let news = data.articles;
+    news = data.articles;  // let 제거
     console.log("ddddd", news);
 };
 <!-- // URL : url에 필요한 함수와 변수들을 제공함(인스턴스)
@@ -13,10 +14,10 @@ const getNews = async() => {
 // fetch : url을 호출하는 함수 (비동기 함수)
 // json : response를 json 형태로 변환하는 함수 (비동기 함수) -->
 
-getNews();
-for (let i=0; i<20; i++){
-    console.log("after", i);
-} 
+(async () => {
+  await getNews();
+  // 여기서 news 변수 사용 가능
+})();
 
 <!-- 자바스크립트 실행 순서
 url 세팅 -> fetch(url) -> browser -> task queue를 통해 데이터를 받아야 data를 보여줄 수 있음 -->
