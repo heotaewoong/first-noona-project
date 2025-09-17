@@ -12,7 +12,7 @@
 .menus{
     margin-top: 1em;
     display: flex;
-    flex-wrap: wrap; // 사진이 많아지면 다음 줄로 넘어가게
+    flex-wrap: wrap; /* 사진이 많아지면 다음 줄로 넘어가게 */
     justify-content: center;
     border-top : 1px solid #ebebeb;
     border-bottom: 4px double black;
