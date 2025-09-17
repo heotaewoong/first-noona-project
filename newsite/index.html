@@ -1,0 +1,30 @@
+const API_KEY = "7410686840814eb7bdadd017d9eb386a";
+let news = [];
+const getNews = async() => {
+    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
+    console.log("uuu", url);
+    const response = await fetch(url); 
+    const data = await response.json();
+    let news = data.articles;
+    console.log("ddddd", news);
+};
+<!-- // URL : url에 필요한 함수와 변수들을 제공함(인스턴스)
+// await : 비동기 함수가 끝날 때까지 기다림 (async 함수 안에서만 사용 가능) 
+// fetch : url을 호출하는 함수 (비동기 함수)
+// json : response를 json 형태로 변환하는 함수 (비동기 함수) -->
+
+getNews();
+for (let i=0; i<20; i++){
+    console.log("after", i);
+} 
+
+<!-- 자바스크립트 실행 순서
+url 세팅 -> fetch(url) -> browser -> task queue를 통해 데이터를 받아야 data를 보여줄 수 있음 -->
+
+<!-- await을 통해 시간 걸리는 작업을 기다리고, async을 통해 비동기 함수를 만들 수 있다.
+getNews() -> let url -> await fetch(url): call stack -> await fetch(url)가 
+call stack에서 빠져나가고, browser가 fetch(url)을 호출 -> 일시 정지, getNews()가 Task Queue에 보관
+ -> For문 실행 -> call stack이 비어있으므로, Task Queue에서 getNews()를 꺼내옴 -> fetch(url)이 끝나면 response에 데이터가 들어감 -> console.log("rrr", response) 실행
+// -> getNews() 종료 -> call stack에서 빠져나감 -->
+
+
