@@ -1,23 +1,33 @@
-const API_KEY = "7410686840814eb7bdadd017d9eb386a";
-let news = [];
-
-const getNews = async () => {
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
-    console.log("uuu", url);
-    const response = await fetch(url);
-    const data = await response.json();
-    news = data.articles;  // let 제거
-    console.log("ddddd", news);
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My News Project</title>
+</head>
+<body>
+  <h1>News List</h1>
+  <ul id="newsList"></ul>
+  <script>
+    const API_KEY = "7410686840814eb7bdadd017d9eb386a";
+    let news = [];
+    const PAGE_SIZE = 10;
+    const getNews = async () => {
+      let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+      const response = await fetch(url);
+      const data = await response.json();
+      news = data.articles;
+      const list = document.getElementById("newsList");
+      list.innerHTML = news.map(item => `<li>${item.title}</li>`).join("");
+    };
+    getNews();
+  </script>
+</body>
+</html>
 <!-- // URL : url에 필요한 함수와 변수들을 제공함(인스턴스)
 // await : 비동기 함수가 끝날 때까지 기다림 (async 함수 안에서만 사용 가능) 
 // fetch : url을 호출하는 함수 (비동기 함수)
 // json : response를 json 형태로 변환하는 함수 (비동기 함수) -->
 
-(async () => {
-  await getNews();
-  // 여기서 news 변수 사용 가능
-})();
 
 <!-- 자바스크립트 실행 순서
 url 세팅 -> fetch(url) -> browser -> task queue를 통해 데이터를 받아야 data를 보여줄 수 있음 -->
