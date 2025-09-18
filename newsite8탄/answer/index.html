@@ -11,13 +11,22 @@
       crossorigin="anonymous"
     />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <section class="container">
+      <!-- Top bar: search always, hamburger only on mobile -->
+      <div class="d-flex align-items-center gap-2 mt-2 mb-2">
+        <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+        <i class="fas fa-bars icon-button d-md-none" onclick="openNav()"></i>
+        <span id="input-area" style="display:none;">
+          <input type="text" id="search-input" placeholder="search" />
+          <button class="search-button" onclick="searchNews()">Go</button>
+        </span>
+      </div>
+
       <!-- Side menu (mobile) -->
-      <div class="side-menu" id="mySidenav">
+      <div class="side-menu d-md-none" id="mySidenav">
         <button class="closebtn" onclick="closeNav()">&times;</button>
         <div class="side-menu-list" id="menu-list">
             <button>Sport</button>
@@ -38,8 +47,6 @@
         </div>
       </div>
 
-      <!-- 햄버거 버튼 추가 -->
-      <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
       <section>
         <div class="head-line">
           <svg viewBox="0 0 184 25" fill="#000" aria-hidden="true">
@@ -48,15 +55,7 @@
             ></path>
           </svg>
         </div>
-        <!-- Search: icon + toggle input -->
-        <div class="mb-2">
-          <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
-          <span id="input-area" style="display:none;">
-            <input type="text" id="search-input" placeholder="search" />
-            <button class="search-button" onclick="searchNews()">Go</button>
-          </span>
-        </div>
-        <div class="menus">
+  <div class="menus d-none d-md-flex">
           <button>Business</button>
           <button>Entertainment</button>
           <button>General</button>
@@ -66,24 +65,7 @@
           <button>Technology</button>
         </div>
       </section>
-      <section id = "news-board">
-        <div class ="row news">
-            <div class="col-lg-4">
-            <img class ="news-img-size" src="https://img.freepik.com/premium-photo/lab-scientist-vr-headset-with-futuristic-holographic-interface-brain-study-neurological-research-center_1036687-16758.jpg" alt="VR Scientist" width="600" height="400">
-            </div>
-            <div class ="col-lg-8">
-                <h2>허브레인 중독 치료 기업 성공 사례</h2>
-                <p>
-                허브레인은 중독 치료 분야에서 혁신적인 접근 방식을 통해 큰 성공을 거둔 기업입니다. 이 회사는 차단 앱과 VR를 이용한 개인 맞춤형 치료 프로그램을 개발했습니다. 그 결과, 많은 환자들이 효과적인 치료를 받고 재활에 성공했습니다. 허브레인의 성공은 중독 치료 산업에 새로운 표준을 제시하며, 앞으로도 많은 사람들에게 희망을 줄 것으로 기대됩니다.
-                </p>
-                <div>
-                    KBS * 2026.05.28
-                </div>
-            </div>
-        </div>
-      </section>
       
-      <h1></h1>
       <div id="news-board" class="row"></div>
     </section>
     <script
