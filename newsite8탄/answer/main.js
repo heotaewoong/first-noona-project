@@ -1,34 +1,23 @@
 const API_KEY = "7410686840814eb7bdadd017d9eb386a";
 let newsList = [];
-const menus = document.querySelectorAll('.menus button, .side-menu-list button');
+const menus = document.querySelectorAll('.menus button');
 menus.forEach(menu => menu.addEventListener('click', (event)=> getNewsByCategory(event)));
-
-// Mobile side menu controls
-const openNav = () => { document.getElementById("mySidenav").style.width = "250px"; };
-const closeNav = () => { document.getElementById("mySidenav").style.width = "0"; };
-
-// Toggle search box on mobile
-const openSearchBox = () => {
-    const inputArea = document.getElementById("input-area");
-    if (!inputArea) return;
-    inputArea.style.display = inputArea.style.display === "inline" ? "none" : "inline";
-};
 
 
 const getNews = async() => {
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
     console.log("uuu", url);
     const response = await fetch(url); 
     const data = await response.json();
     newsList = data.articles;
-    render();
+    render ();
     console.log("ddddd", newsList);
 };
 
 const getNewsByCategory = async event => {
     const category = event.target.textContent.toLowerCase();
     console.log("category", category);
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`);
     const response = await fetch(url);
     const data = await response.json();
     console.log("Ddd", data)
@@ -37,9 +26,26 @@ const getNewsByCategory = async event => {
 
 }
 
+const openNav = () => {
+  document.getElementById("mySidenav").style.width = "250px";
+};
+
+const closeNav = () => {
+  document.getElementById("mySidenav").style.width = "0";
+};
+
+const openSearchBox = () => {
+  let inputArea = document.getElementById("input-area");
+  if (inputArea.style.display === "inline") {
+    inputArea.style.display = "none";
+  } else {
+    inputArea.style.display = "inline";
+  }
+};
+
 const getNewsByKeyword = async() => {
     const keyword = document.getElementById("search-input").value;
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+    const url = new URL(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`);
     const response = await fetch(url); 
     const data = await response.json(); 
     console.log("Ddd", data)
@@ -75,3 +81,10 @@ for (let i=0; i<20; i++){
 //1. 버튼들에 클릭이벤트주기
 //2. 카테고리별 뉴스 가져오기
 //3. 그 뉴스를 보여주기
+
+// Alias for new search button in HTML
+function searchNews(){
+  if (typeof getNewsByKeyword === 'function') {
+    getNewsByKeyword();
+  }
+}
