@@ -1,11 +1,14 @@
-const API_KEY = "7410686840814eb7bdadd017d9eb386a";
+const BASE_URL = "https://noona-times-be-5ca9402f90d9.herokuapp.com";
+const PAGE_SIZE = 10;
 let newsList = [];
 const menus = document.querySelectorAll('.menus button');
 menus.forEach(menu => menu.addEventListener('click', (event)=> getNewsByCategory(event)));
 
 
 const getNews = async() => {
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+  const url = new URL(`${BASE_URL}/top-headlines`);
+  url.searchParams.set('country', 'kr');
+  url.searchParams.set('pageSize', PAGE_SIZE);
     console.log("uuu", url);
     const response = await fetch(url); 
     const data = await response.json();
@@ -17,7 +20,10 @@ const getNews = async() => {
 const getNewsByCategory = async event => {
     const category = event.target.textContent.toLowerCase();
     console.log("category", category);
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+  const url = new URL(`${BASE_URL}/top-headlines`);
+  url.searchParams.set('country', 'kr');
+  url.searchParams.set('category', category);
+  url.searchParams.set('pageSize', PAGE_SIZE);
     const response = await fetch(url);
     const data = await response.json();
     console.log("Ddd", data)
@@ -44,8 +50,10 @@ const openSearchBox = () => {
 };
 
 const getNewsByKeyword = async() => {
-    const keyword = document.getElementById("search-input").value;
-    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
+  const keyword = document.getElementById("search-input").value;
+  const url = new URL(`${BASE_URL}/everything`);
+  url.searchParams.set('q', keyword);
+  url.searchParams.set('pageSize', PAGE_SIZE);
     const response = await fetch(url); 
     const data = await response.json(); 
     console.log("Ddd", data)
