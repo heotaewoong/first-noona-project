@@ -5,7 +5,7 @@ menus.forEach(menu => menu.addEventListener('click', (event)=> getNewsByCategory
 
 
 const getNews = async() => {
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`);
+    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
     console.log("uuu", url);
     const response = await fetch(url); 
     const data = await response.json();
@@ -17,7 +17,7 @@ const getNews = async() => {
 const getNewsByCategory = async event => {
     const category = event.target.textContent.toLowerCase();
     console.log("category", category);
-    const url = new URL(`https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`);
+    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
     const response = await fetch(url);
     const data = await response.json();
     console.log("Ddd", data)
@@ -45,7 +45,7 @@ const openSearchBox = () => {
 
 const getNewsByKeyword = async() => {
     const keyword = document.getElementById("search-input").value;
-    const url = new URL(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`);
+    let url = new URL(`https://noona-times-be-5ca9402f90d9.herokuapp.com/top-headlines?country=kr&pageSize=${PAGE_SIZE}&apiKey=${API_KEY}`);
     const response = await fetch(url); 
     const data = await response.json(); 
     console.log("Ddd", data)
