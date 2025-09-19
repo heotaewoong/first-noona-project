@@ -1,4 +1,4 @@
-const API_KEY = "6e7d6014165d4984d13f162993cce3f3"; // provided by user
+const API_KEY = ; // provided by user
 const API_URL = `https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=ko-KR&page=1&region=KR`;
 const IMG = (path, size = "w500") => `https://image.tmdb.org/t/p/${size}${path}`;
 
