@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <!-- // 반응형 레이아웃을 위한 필수 메타 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Heo News</title>
+
+    <!-- // 아이콘(햄버거/돋보기 등) 사용 -->
+    <script
+      src="https://kit.fontawesome.com/dab690a483.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- // Bootstrap CSS (레이아웃/그리드) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- // 프로젝트 스타일 -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- // 모바일 사이드 메뉴: openNav()/closeNav()로 여닫음 -->
+    <div class="side-menu" id="mySidenav">
+      <button class="closebtn" onclick="closeNav()">&times;</button>
+      <div class="side-menu-list" id="menu-list">
+        <!-- // 모바일용 카테고리 버튼들 -->
+        <button>General</button>
+        <button>Sports</button>
+        <button>Technology</button>
+        <button>Business</button>
+        <button>Entertainment</button>
+        <button>Health</button>
+        <button>Science</button>
+      </div>
+    </div>
+
+    <section class="container">
+      <!-- // 상단 아이콘/검색 영역 -->
+      <div class="head-line-section">
+        <div>
+          <!-- // 모바일: 사이드 메뉴 열기 -->
+          <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+          <!-- // 검색창 토글 -->
+          <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
+
+          <!-- // 검색 입력창과 버튼. 반드시 id="search-input" 이어야 JS가 찾음 -->
+          <span id="input-area">
+            <input type="text" id="search-input" placeholder="search" />
+            <!-- // HTML에서 직접 함수 호출 -> main.js에 window.getNewsByKeyword 바인딩 필요 -->
+            <button class="search-button" onclick="getNewsByKeyword()">
+              Go
+            </button>
+          </span>
+        </div>
+
+        <!-- // 헤드라인 로고 SVG (디자인용) : 생략 가능 -->
+        <div class="head-line">
+          <!-- <svg viewBox="0 0 184 25" fill="#000" aria-hidden="true">
+            <path
+              d="M14.57,2.57C14.57,.55,12.65-.06,11.04,.01V.19c.96,.07,1.7,.46,1.7,1.11,0,.45-.32,1.01-1.28,1.01-.76,0-2.02-.45-3.2-.84-1.3-.45-2.54-.87-3.57-.87-2.02,0-3.55,1.5-3.55,3.36,0,1.5,1.16,2.02,1.63,2.21l.03-.07c-.3-.2-.49-.42-.49-1.06,0-.54,.39-1.26,1.43-1.26,.94,0,2.17,.42,3.8,.88,1.4,.39,2.91,.76,3.75,.87v3.28l-1.58,1.3,1.58,1.36v4.49c-.81,.46-1.75,.61-2.56,.61-1.5,0-2.88-.42-4.02-1.68l4.26-2.07V5.73l-5.2,2.32c.54-1.38,1.55-2.41,2.66-3.08l-.03-.08C3.31,5.73,.5,8.56,.5,12.06c0,4.19,3.35,7.3,7.22,7.3,4.19,0,6.65-3.28,6.61-6.75h-.08c-.61,1.33-1.63,2.59-2.78,3.25v-4.38l1.65-1.33-1.65-1.33v-3.28c1.53,0,3.11-1.01,3.11-2.96"
+            ></path>
+          </svg> -->
+          <h1 class="brand-title" onclick="getLatestNews()">The New York Times</h1>
+
+        </div>
+
+        <!-- // 데스크탑용 카테고리 메뉴: id 제거(중복 방지). JS는 모바일(side-menu) id만 사용 -->
+        <div class="menus">
+          <button>General</button>
+          <button>Sports</button>
+          <button>Technology</button>
+          <button>Business</button>
+          <button>Entertainment</button>
+          <button>Health</button>
+          <button>Science</button>
+        </div>
+      </div>
+
+      <!-- // 뉴스 카드들이 그려질 자리: id="news-board" 하나만 존재해야 함 -->
+      <div id="news-board" class="row"></div>
+      <!-- <div class="news row"> // 샘플 뉴스 카드(삭제 가능)
+                <div class="col-lg-4">
+                    <img class="news-img"
+                        src="https://images.hindustantimes.com/img/2021/09/09/550x309/BREAKING_NEWS_1631230366821_1631230369778.jpg" />
+                </div>
+                <div class="col-lg-8">
+                    <h1>News Title will be here</h1>
+                    <p>news detail info Low slung, high waisted, skinny, cropped, baggy, flared — there’s no consensus
+                        on jeans these days. What does that say about the era we’re living through?</p>
+                    <div>BBC * 2021-10-31</div>
+                </div>
+            </div>
+        </div> -->
+      <!-- // 페이지네이션 렌더 타깃(옵션) -->
+      <nav aria-label="Page navigation example" class="pagenation-nav">
+        <ul class="pagination"></ul>
+        <!-- // JS가 페이지네이션 버튼을 여기에 렌더링 -->
+      </nav>
+    </section>
+
+    <!-- // Bootstrap JS (드롭다운 등) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- // 상대/절대 시간 표기를 위해 사용하는 라이브러리(선택) -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- // 앱 로직. 캐시 무효화를 위해 ?v=숫자 사용 권장 -->
+    <script src="main.js?v=1"></script>
+  </body>
+</html>
