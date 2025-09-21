@@ -1,4 +1,3 @@
-const API_KEY = "7410686840814eb7bdadd017d9eb386a";
 let newsList = [];
 const menus = document.querySelectorAll('.menus button');
 
