@@ -1,7 +1,10 @@
 const API_KEY = "";
 let newsList = [];
 const menus = document.querySelectorAll('.menus button');
+
+
 menus.forEach(menu => menu.addEventListener('click', (event)=> getNewsByCategory(event)));
+
 
 // 사이드바 버튼에도 바인딩 추가 + 클릭 후 닫기
 const sideMenuButtons = document.querySelectorAll('#menu-list button');
@@ -63,14 +66,15 @@ const getNews = async() => { // 코드 리펙토링
 
 const getLatestNews = async () => {
     //url = new URL(`${urlSample1}`);
-    url = new URL(`${urlSample2}`);
     page = 1; // 최신 뉴스로 돌아갈 때 페이지 1로 초기화
+    url = new URL(`${urlSample2}`);
     await getNews(); // await 없으면 render가 안기다림
 };
 
 const getNewsByCategory = async event => {
     const category = event.target.textContent.toLowerCase();
     //url = new URL(`${urlSample1}&category=${category}`);
+    page = 1; // 카테고리별 뉴스로 갈 때 페이지 1로 초기화
     url = new URL(`${urlSample2}&category=${category}`);
     await getNews();
 }
@@ -86,6 +90,7 @@ const openSearchBox = () => {
 
 const getNewsByKeyword = async() => {
     const keyword = document.getElementById("search-input").value;
+    page = 1; // 페이지네이션 초기화
     //url = new URL(`${urlSample1}&q=${keyword}`);
     url = new URL(`${urlSample2}&q=${keyword}`); 
     await getNews();
