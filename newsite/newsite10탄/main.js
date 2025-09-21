@@ -71,7 +71,7 @@ const getLatestNews = async () => {
 };
 
 const getNewsByCategory = async event => {
-    const category = event.target.textContent.toLowerCase();
+    const category = event.target.textContent.toLowerCase(); 
     //url = new URL(`${urlSample1}&category=${category}`);
     page = 1; // 카테고리별 뉴스로 갈 때 페이지 1로 초기화
     url = new URL(`${urlSample2}&category=${category}`);
