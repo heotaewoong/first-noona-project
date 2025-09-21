@@ -157,6 +157,7 @@ const paginationRender = () => {
 
     let pagiNationHTML = "";
 
+
 // 1) 이전 쪽 네비게이션(첫 페이지/이전 페이지)
 if (page != 1) { // 1페이지가 아닐 때만 표시
   if (page > 2) {
@@ -184,7 +185,7 @@ for (let i = firstPage; i <= lastPage; i++) {
 }
 
 // 3) 다음 쪽 네비게이션(다음 페이지/마지막)
-if (page != lastPage) { // 그룹의 마지막 페이지가 아니면
+if (page < totalPages) { // 전체 마지막 페이지가 아니면
   // >: 다음 페이지로
   pagiNationHTML += `<li class="page-item">
     <a class="page-link" onclick="moveToPage(${page+1})" href="#">
@@ -192,14 +193,14 @@ if (page != lastPage) { // 그룹의 마지막 페이지가 아니면
     </a>
   </li>`;
 
-  if (page < lastPage - 1) {
-    // »: 그룹의 끝(lastPage)으로 점프(앞으로 2페이지 이상 남았을 때만)
+  if (page < totalPages - 1) {
+    // »: 전체 마지막 페이지로 점프
     pagiNationHTML += `<li class="page-item">
-      <a class="page-link" onclick="moveToPage(${lastPage})" href="#">
+      <a class="page-link" onclick="moveToPage(${totalPages})" href="#">
         <i class="fa-solid fa-angles-right"></i>
       </a>
     </li>`;
-  }
+   }
 }
     document.querySelector('.pagination').innerHTML = pagiNationHTML;
 
